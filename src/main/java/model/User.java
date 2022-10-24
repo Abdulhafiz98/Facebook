@@ -1,5 +1,6 @@
 package model;
 
+import base.Base;
 import lombok.*;
 
 @AllArgsConstructor
