@@ -81,4 +81,11 @@ public class GroupService implements BaseService{
             System.out.println(s);
         }
     }
+    public void showGroupByUser(int userId){
+        for (Group group:groups) {
+            if (group.getUsers().contains(userId)) {
+                System.out.println(group.getName());
+            }
+        }
+    }
 }
