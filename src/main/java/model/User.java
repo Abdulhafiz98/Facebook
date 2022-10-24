@@ -1,13 +1,12 @@
 package model;
 
-import base.Base;
 import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-
+@ToString(callSuper = true)
 public class User extends Base {
 
     private String userName;
