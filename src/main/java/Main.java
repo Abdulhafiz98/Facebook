@@ -1,7 +1,9 @@
 import model.Contact;
 
-import java.nio.file.attribute.UserPrincipal;
 
+/**
+ * @author Xojiakbar Abiyerov
+ */
 public class Main {
     public static void main(String[] args) {
         Contact contact = new Contact();

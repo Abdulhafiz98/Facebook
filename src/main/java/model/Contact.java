@@ -3,23 +3,27 @@ package model;
 import base.Base;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 @AllArgsConstructor
+@Setter
 @Getter
 
 
 public class Contact  extends Base {
     private int userId;
     private String contactName;
+    private String contactSurname;
     private String contactNumber;
 
     public Contact(){
 
     }
 
-    public Contact(int id, int userId, String contactName, String contactNumber) {
+    public Contact(int id, int userId, String contactName, String contactNumber, String contactSurname) {
         super(id);
         this.userId = userId;
+        this.contactSurname = contactSurname;
         this.contactName = contactName;
         this.contactNumber = contactNumber;
     }
