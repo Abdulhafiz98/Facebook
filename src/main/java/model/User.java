@@ -14,7 +14,9 @@ public class User extends Base {
     private String firstName;
     private String password;
     private String email;
-    private String dataOfBirth;
+    private String monthOfBirth;
+    private int birtDay;
+    private int yearOfBirth;
     private String gender;
 
 
