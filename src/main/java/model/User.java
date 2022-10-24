@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 
-public class User {
+public class User extends Base {
 
     private String userName;
     private String sureName;
