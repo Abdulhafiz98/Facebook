@@ -18,6 +18,7 @@ public class User extends Base {
     private int yearOfBirth;
     private Gender gender;
     private String phoneNumber;
+    private String isInActive;
 
 
 

@@ -1,14 +1,14 @@
 package serivice;
 
-<<<<<<< HEAD
+
 import dataBase.Lists;
 import model.Gender;
 import model.User;
 
 public class UserService implements BaseService {
 
-    public User signUp(String userName, String surName, String firstName, String password , String email, String monthOfBirth , Gender gender, int birtDay, int yearOfBirth,String phoneNumber){
-             User user=new User(userName,surName,firstName,password,email,monthOfBirth,birtDay,yearOfBirth,gender,phoneNumber);
+    public User signUp(String userName, String surName, String firstName, String password , String email, String monthOfBirth , Gender gender, int birtDay, int yearOfBirth,String phoneNumber,String isInActive){
+             User user=new User(userName,surName,firstName,password,email,monthOfBirth,birtDay,yearOfBirth,gender,phoneNumber,isInActive);
         Lists.USERS_LIST.add(user);
         return user;
     }
@@ -30,6 +30,21 @@ public class UserService implements BaseService {
             return false;
         }
     }
+public boolean editPersonalDetails(String userName, String surName, String firstName,  String phoneNumber,String  password){
+    for (User user : Lists.USERS_LIST) {
+        if(user!=null){
+            System.out.println(user);
+            user.setUserName(userName);
+            user.setSureName(surName);
+            user.setFirstName(firstName);
+            user.setPhoneNumber(phoneNumber);
+            user.setPassword(password);
+            return true;
+        }
+
+    }return false;
+}
+
 
 
     @Override
@@ -64,10 +79,9 @@ public class UserService implements BaseService {
 
         }
         return false;
-    }
+    }}
 
-=======
-public class UserService {
->>>>>>> origin/Xojiakbar
-
-}
+//public class UserService {
+//
+//
+//}
