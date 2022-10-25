@@ -1,6 +1,7 @@
 package serivice;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import dataBase.Lists;
 import model.Gender;
 import model.User;
@@ -69,5 +70,8 @@ public class UserService implements BaseService {
 =======
 public class UserService {
 >>>>>>> cc76dd0 (BaseService.java va Contact.java to`g`irlandi ContactService qo`shildi)
+=======
+public class UserService {
+>>>>>>> origin/Xojiakbar
 
 }
