@@ -1,6 +1,5 @@
 package model;
 
-import base.Base;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
