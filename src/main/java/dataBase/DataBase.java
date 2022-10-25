@@ -25,7 +25,6 @@ public abstract class DataBase {
             users.add(user);
             gson.toJson(users);
         }
-
     }
     private static void fileWriter(File file,String str) throws IOException {
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));

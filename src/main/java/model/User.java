@@ -8,7 +8,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString(callSuper = true)
+@ToString
 public class User extends Base {
     List<User> contactList = new ArrayList<>();
     private String userName;
