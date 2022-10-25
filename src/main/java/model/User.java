@@ -3,6 +3,9 @@ package model;
 import base.Base;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -10,6 +13,7 @@ import lombok.*;
 
 public class User extends Base {
 
+    public  List<User> contacts = new ArrayList<>();
     private String userNameOrEmail;
     private String surName;
     private String firstName;
