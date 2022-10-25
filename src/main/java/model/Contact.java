@@ -3,14 +3,13 @@ package model;
 import base.Base;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.extern.java.Log;
 
-/**
- * @author Abiyerov Xojiakbar
- */
-@AllArgsConstructor
-@Getter
+
 @Setter
+@Getter
 
 public class Contact  extends Base {
     private int userId;
@@ -18,12 +17,9 @@ public class Contact  extends Base {
     private String contactSurname;
     private String contactNumber;
 
-    public Contact(){
 
-    }
-
-    public Contact(int id, int userId, String contactName, String contactNumber, String contactSurname) {
-        super(id);
+    public Contact(int userId, String contactName, String contactNumber, String contactSurname) {
+        super();
         this.userId = userId;
         this.contactSurname = contactSurname;
         this.contactName = contactName;

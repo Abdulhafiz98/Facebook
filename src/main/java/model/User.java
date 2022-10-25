@@ -1,6 +1,5 @@
 package model;
 
-import base.Base;
 import lombok.*;
 
 @AllArgsConstructor
@@ -8,16 +7,14 @@ import lombok.*;
 @Getter
 @Setter
 
-public class User extends Base {
+public class User {
 
     private String userName;
     private String sureName;
     private String firstName;
     private String password;
     private String email;
-    private String monthOfBirth;
-    private int birtDay;
-    private int yearOfBirth;
+    private String dataOfBirth;
     private String gender;
 
 
