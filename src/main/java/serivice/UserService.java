@@ -1,5 +1,6 @@
 package serivice;
 
+<<<<<<< HEAD
 import dataBase.Lists;
 import model.Gender;
 import model.User;
@@ -65,5 +66,8 @@ public class UserService implements BaseService {
         return false;
     }
 
+=======
+public class UserService {
+>>>>>>> origin/Xojiakbar
 
 }

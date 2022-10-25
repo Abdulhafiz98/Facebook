@@ -4,10 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * @author Abiyerov Xojiakbar
+ */
 @AllArgsConstructor
-@Setter
 @Getter
-
+@Setter
 
 public class Contact  extends Base {
     private int userId;
@@ -24,30 +26,6 @@ public class Contact  extends Base {
         this.userId = userId;
         this.contactSurname = contactSurname;
         this.contactName = contactName;
-        this.contactNumber = contactNumber;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public String getContactName() {
-        return contactName;
-    }
-
-    public void setContactName(String contactName) {
-        this.contactName = contactName;
-    }
-
-    public String getContactNumber() {
-        return contactNumber;
-    }
-
-    public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
     }
 
