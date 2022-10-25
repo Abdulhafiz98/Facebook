@@ -10,15 +10,27 @@ import serivice.baseService.BaseService;
 public class ContactService implements BaseService {
 
     // ishlatilmidi
+
     @Override
-    public boolean add(Object o) {
+    public boolean add(Object o, int id) {
         return false;
     }
 
     @Override
-    public Object getById(int id) {
-
-        return null;
+    public Object getById(int contactId, User owner) {
+        User currContact = null;
+        try {
+            if (owner.contacts != null) {
+                for (User contact : owner.getContacts()) {
+                    if (contact.getId() == contactId) {
+                        currContact = contact;
+                    }
+                }
+            }
+        }catch (Exception e) {
+            System.out.println(" No Friends ");
+        }
+        return currContact;
     }
 
     @Override
@@ -29,35 +41,26 @@ public class ContactService implements BaseService {
 
 
     public User getContactById(int contactId, User owner) {
-        User contactr = null;
-        try {
-            if (owner.contacts != null) {
-                for (User contact : owner.getContacts()) {
-                    if (contact.getId() == contactId) {
-                       contactr = contact;
-                        return contact;
-                    }
-                }
-            }
-        }catch (Exception e) {
-            System.out.println(" No Friends ");
-        }
-        return contactr;
+
     }
 
-    public void deleteContactById(int contactId, User owner) {
+    public boolean deleteContactById(int contactId, User owner) {
+        boolean flag = false;
         try {
             if (owner.getContacts() != null) {
                 for (User contact : owner.getContacts()) {
                     if (contact.getId() == contactId) {
                         owner.getContacts().remove(contact);
                         System.out.println(" Removed friend");
-                    } else System.out.println("\t\t Friend does not found ");
+                         flag = true;
+                    } else{ System.out.println("\t\t Friend does not found ");
+                        }
                 }
             }
         }catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        return flag;
     }
 
     public void allContacts(User owner) {
@@ -83,7 +86,7 @@ public class ContactService implements BaseService {
         try {
             if (owner != null) {
                 owner.getContacts().add(contactUser);
-                System.out.println(" \t\t *** Add to friend ");
+                System.out.println(" \t\t *** Added to friend ");
             }
         }
         catch (Exception e) {

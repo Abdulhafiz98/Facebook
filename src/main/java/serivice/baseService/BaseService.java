@@ -1,9 +1,13 @@
 package serivice.baseService;
 
+import model.User;
+
 public interface BaseService {
 
-    boolean add(Object o);
-    Object getById(int id);
+    boolean add(Object o, int id);
+
+    Object getById(Object o, int id);
+
     boolean deleteById(int id);
 
 
