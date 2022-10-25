@@ -1,23 +1,23 @@
 package serivice;
-import model.Contact;
+import model.User;
 import serivice.baseService.BaseService;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class ContactService implements BaseService {
-    public List<Contact> contacts = new ArrayList<>();
+    public List<User> contacts = new ArrayList<>();
 
     @Override
     public boolean add(Object o) {
-        Contact contact = (Contact)o;
+        User contact = (User)o;
         contacts.add(contact);
         return true;
     }
 
     @Override
     public Object getById(int id) {
-            for (Contact contact : contacts){
+            for (User contact : contacts){
                 if (contact != null) {
                     if (contact.getId() == id) {
                         return contact;
@@ -29,7 +29,7 @@ public class ContactService implements BaseService {
 
     @Override
     public boolean deleteById(int id) {
-        for (Contact contact : contacts){
+        for (User contact : contacts){
             if(contact != null) {
                 if (contact.getId() == id) {
                     contacts.remove(contact);
@@ -41,8 +41,8 @@ public class ContactService implements BaseService {
     }
 
     public boolean searchContact(String nameOrUsername){
-        for (Contact contact : contacts){
-            if (contact.getContactName().equals(nameOrUsername)) {
+        for (User contact : contacts){
+            if (contact.getFirstName().equals(nameOrUsername)) {
                 return true;
             }
         }
