@@ -1,33 +1,9 @@
 package serivice;
 
 import model.User;
-import serivice.baseService.BaseService;
 
 
-// OVERRIDE QILINGAN METHODLAR MEINDA ISHLATILMASIN *****
-
-
-public class ContactService implements BaseService {
-
-    // ishlatilmidi
-    @Override
-    public boolean add(Object o) {
-        return false;
-    }
-
-    @Override
-    public Object getById(int id) {
-
-        return null;
-    }
-
-    @Override
-    public boolean deleteById(int id) {
-        return false;
-    }
-    // shu yergacha
-
-
+public class ContactService {
     public User getContactById(int contactId, User owner) {
         User contact = null;
         try {
