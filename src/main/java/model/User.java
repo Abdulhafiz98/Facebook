@@ -9,11 +9,10 @@ import lombok.*;
 
 public class User {
 
-    private String userName;
-    private String sureName;
+    private String userNameOrEmail;
+    private String surName;
     private String firstName;
     private String password;
-    private String email;
     private String dataOfBirth;
     private String gender;
 
