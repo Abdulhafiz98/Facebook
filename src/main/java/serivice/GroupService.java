@@ -2,12 +2,13 @@ package serivice;
 
 import model.Group;
 import model.User;
+import serivice.baseService.BaseService;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class GroupService implements BaseService{
+public class GroupService implements BaseService {
     List<Group>groups=new ArrayList<>();
 
 
@@ -34,6 +35,11 @@ public class GroupService implements BaseService{
     @Override
     public Object getById(int groupId) {
         return groups.get(groupId);
+    }
+
+    @Override
+    public boolean add(Object o) {
+        return false;
     }
 
     @Override

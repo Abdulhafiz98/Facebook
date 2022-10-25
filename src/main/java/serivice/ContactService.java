@@ -1,5 +1,4 @@
 package serivice;
-import model.Contact;
 import serivice.baseService.BaseService;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +12,11 @@ public class ContactService implements BaseService {
         Contact contact = (Contact)o;
         contacts.add(contact);
         return true;
+    }
+
+    @Override
+    public boolean add(Object o, int groupId) {
+        return false;
     }
 
     @Override
