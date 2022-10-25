@@ -4,9 +4,9 @@ import model.User;
 
 public interface BaseService {
 
-    boolean add(Object o, int id);
+    boolean add(Object o);
 
-    Object getById(Object o, int id);
+    Object getById(int id);
 
     boolean deleteById(int id);
 
