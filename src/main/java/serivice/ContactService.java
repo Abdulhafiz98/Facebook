@@ -7,8 +7,8 @@ public class ContactService {
     public User getContactById(int contactId, User owner) {
         User contact = null;
         try {
-            if (owner.contacts != null) {
-                for (User thisContact : owner.getContacts()) {
+            if (owner.getContactList() != null) {
+                for (User thisContact : owner.getContactList()) {
                     if (thisContact.getId() == contactId) {
                         contact = thisContact;
                     }
@@ -26,10 +26,10 @@ public class ContactService {
     public boolean deleteContactById(int contactId, User owner) {
        boolean flag = false;
         try {
-            if (owner.getContacts() != null) {
-                for (User contact : owner.getContacts()) {
+            if (owner.getContactList() != null) {
+                for (User contact : owner.getContactList()) {
                     if (contact.getId() == contactId) {
-                        owner.getContacts().remove(contact);
+                        owner.getContactList().remove(contact);
                         System.out.println(" Friend removed ");
                         flag = true;
                     } else System.out.println("\t\t Friend does not found ");
@@ -43,16 +43,17 @@ public class ContactService {
 
     public void allContacts(User owner) {
         try {
-            if (owner.contacts != null) {
+            if (owner.getContactList() != null) {
                 System.out.println("\t\t  *** Friends *** "+"\n");
-                for (User contact : owner.contacts) {
+                for (User contact : owner.getContactList()) {
                     System.out.println("\n\n");
-                    System.out.println(" Username      : " + contact.getUserNameOrEmail());
+                    System.out.println(" Username      : " + contact.getUserName());
                     System.out.println(" ID            : " + contact.getId());
                     System.out.println(" Name          : " + contact.getFirstName());
                     System.out.println(" Surname       : " + contact.getSurName());
                     System.out.println(" Gender        : " + contact.getGender());
-                    System.out.println(" Date of birth : " + contact.getDataOfBirth());
+                    System.out.println(" Date of birth : " + contact.getBirthDay()+'.'+
+                            contact.getMonthOfBirth()+'.'+contact.getYearOfBirth());
                     System.out.println("\n");
                 }
             }
@@ -66,7 +67,7 @@ public class ContactService {
        boolean flag = false;
         try {
             if (owner != null) {
-                owner.getContacts().add(contactUser);
+                owner.getContactList().add(contactUser);
                 System.out.println(" \t\t *** Added to friends ***");
                 flag = true;
             }
