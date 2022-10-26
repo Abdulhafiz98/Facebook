@@ -6,16 +6,11 @@ import lombok.ToString;
 @Getter
 @ToString
 public abstract class Base {
-   int id = 0;
+   int id;
    static int idGen = 0;
 
-   public Base(int num){
-       this.id = idGen++;
-   }
-
    public Base(){
-
+      idGen++;
+       this.id = idGen;
    }
-
-
 }

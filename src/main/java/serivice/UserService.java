@@ -29,10 +29,12 @@ public class UserService {
         return null;
     }
 
-    public void checkEmail(String email){
+    public boolean checkEmail(String email){
         if(!(email.contains("@gmail")&&email.contains(".com"))){
             System.out.println("Invalid email address. Please try again");
+            return false;
         }
+        return true;
     }
 
     public boolean editPersonalDetails(String userName, String sureName, String firstName,  String phoneNumber,String  password) {
