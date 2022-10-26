@@ -20,5 +20,4 @@ public class ChatService {
         LocalTime localTime = LocalTime.now();
         return message+". |"+localTime.format(DateTimeFormatter.ofPattern("HH:mm"));
     }
-
 }

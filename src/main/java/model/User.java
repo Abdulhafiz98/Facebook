@@ -1,13 +1,12 @@
 package model;
 
-import base.Base;
 import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-
+@ToString(callSuper = true)
 public class User extends Base {
 
     private String userName;
@@ -15,9 +14,7 @@ public class User extends Base {
     private String firstName;
     private String password;
     private String email;
-    private String monthOfBirth;
-    private int birtDay;
-    private int yearOfBirth;
+    private String dataOfBirth;
     private String gender;
 
 
