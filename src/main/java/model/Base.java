@@ -9,10 +9,13 @@ public abstract class Base {
    int id = 0;
    static int idGen = 0;
 
-   public Base(){
+   public Base(int num){
        this.id = idGen++;
    }
 
+   public Base(){
+
+   }
 
 
 }
