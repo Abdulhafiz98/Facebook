@@ -7,11 +7,10 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
-import java.net.PasswordAuthentication;
 import java.util.Properties;
 
 public class UserService {
-    public User signUp(User user) throws IOException {
+    public User signUp(User user) {
         DataBase.USERS_LIST.add(user);
         try {
             DataBase.saveUserToDataBase(user);
