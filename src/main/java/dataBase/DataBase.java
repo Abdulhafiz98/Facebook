@@ -20,7 +20,7 @@ public abstract class DataBase {
 
     public static void saveUserToDataBase(User user) throws IOException {
 
-        File file = new File("F:\\Java lessons\\Facebook\\src\\main\\resources\\users\\UsersJson.json");
+        File file = new File("C:\\Users\\Mirabbos\\Documents\\B24\\Facebook\\src\\main\\java\\UsersJson.json");
         if(file.createNewFile()){
             String str = "[" + gson.toJson(user) + "]"; // agar shunday save qilinmasa kegn oqiy olmaydi;
             fileWriter(file,str);
@@ -32,7 +32,7 @@ public abstract class DataBase {
     }
 
     public static void saveChatToDataBase(Chat chat) throws IOException {
-        File file = new File("F:\\Java lessons\\Facebook\\src\\main\\resources\\chats\\chatJson.json");
+        File file = new File("C:\\Users\\Mirabbos\\Documents\\B24\\Facebook\\src\\main\\java\\chatJson.json");
         if(file.createNewFile()){
             String str ="["+gson.toJson(chat)+"]";
             fileWriter(file,str);
@@ -43,7 +43,7 @@ public abstract class DataBase {
         }
     }
     public static void savePostToDataBase(Post post) throws IOException {
-        File file=new File("F:\\Java lessons\\Facebook\\src\\main\\resources\\posts\\postJson.json");
+        File file=new File("C:\\Users\\Mirabbos\\Documents\\B24\\Facebook\\src\\main\\java\\postJson.json");
         if(file.createNewFile()){
             String str = "["+gson.toJson(post)+"]";
             fileWriter(file,str);
@@ -87,7 +87,7 @@ public abstract class DataBase {
     }
     public static void readJsonPostsFilesIfExist(File file){
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
-            ALL_POSTS_LIST = gson.fromJson(bufferedReader,new TypeToken<List<Chat>>(){}.getType());
+            ALL_POSTS_LIST = gson.fromJson(bufferedReader,new TypeToken<List<Post>>(){}.getType());
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {

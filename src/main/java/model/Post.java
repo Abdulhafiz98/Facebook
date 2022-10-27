@@ -5,7 +5,6 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,4 +17,5 @@ public class Post extends Base{
 
     private int userId;
     private String text;
+    private String date;
 }

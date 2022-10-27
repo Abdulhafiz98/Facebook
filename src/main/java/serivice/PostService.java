@@ -9,10 +9,11 @@ import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 
 public class PostService {
-    public boolean addPost(int userId,String text)  {
+    public boolean addPost(int userId,String text, String date)  {
         Post post=new Post();
-        post.setText(Colors.GREEN+UserService.getUserById(userId).getFirstName()+Colors.RESET+"\n"+addPostTime(text));
+        post.setText(text);
         post.setUserId(userId);
+        post.setDate(date);
         DataBase.ALL_POSTS_LIST.add(post);
         try {
             DataBase.savePostToDataBase(post);
@@ -34,6 +35,8 @@ public class PostService {
         for(int i=DataBase.ALL_POSTS_LIST.size()-1; i>=0; i--){
             if(DataBase.ALL_POSTS_LIST.get(i)!=null){
                 System.out.println(DataBase.ALL_POSTS_LIST.get(i).getText());
+                System.out.println(DataBase.ALL_POSTS_LIST.get(i).getUserId());
+                System.out.println(DataBase.ALL_POSTS_LIST.get(i).getDate());
             }
         }
     }

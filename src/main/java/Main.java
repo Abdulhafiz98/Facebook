@@ -1,15 +1,12 @@
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import dataBase.DataBase;
 import model.Gender;
 import model.User;
-import serivice.ChatService;
 import serivice.PostService;
 import serivice.UserService;
 
-import java.io.*;
-import java.util.List;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
@@ -17,17 +14,21 @@ public class Main {
     static Scanner scannerStr = new Scanner(System.in);
     static UserService userService = new UserService();
     static String error = "Wrong choice, please try again.";
+    static PostService postService = new PostService();
+    static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy : hh:mm:ss");
+    static Date date = new Date();
+
     public static void main(String[] args) {
-        File file  = new File("F:\\Java lessons\\Facebook\\src\\main\\resources\\users\\UsersJson.json");
-        File file1 = new File("F:\\Java lessons\\Facebook\\src\\main\\resources\\chats\\chatJson.json");
-        File file2 = new File("F:\\Java lessons\\Facebook\\src\\main\\resources\\posts\\postJson.json");
-        if(file.exists()){
+        File file = new File("C:\\Users\\Mirabbos\\Documents\\B24\\Facebook\\src\\main\\java\\UsersJson.json");
+        File file1 = new File("C:\\Users\\Mirabbos\\Documents\\B24\\Facebook\\src\\main\\java\\chatJson.json");
+        File file2 = new File("C:\\Users\\Mirabbos\\Documents\\B24\\Facebook\\src\\main\\java\\postJson.json");
+        if (file.exists()) {
             DataBase.readJsonUsersFilesIfExist(file);
         }
-        if(file1.exists()){
+        if (file1.exists()) {
             DataBase.readJsonChatsFilesIfExist(file1);
         }
-        if(file2.exists()){
+        if (file2.exists()) {
             DataBase.readJsonPostsFilesIfExist(file2);
         }
 
@@ -35,22 +36,29 @@ public class Main {
         while (true) {
             System.out.print("1 => Sign up\n2 => Sign in\n0 => Stop the program\n>>>");
             int var1 = scannerInt.nextInt();
-            switch (var1){
+            switch (var1) {
                 case 1 -> signUp();
                 case 2 -> signIn();
-                case 0 -> {return;}
+                case 0 -> {
+                    return;
+                }
                 default -> System.out.println(error);
             }
         }
     }
-    public static void signUp(){
+
+    public static void signUp() {
+        System.out.print("Insert a username: ");
+        String usertName = scannerStr.nextLine();
         System.out.print("Insert a first name: ");
         String firstName = scannerStr.nextLine();
         System.out.print("Insert a last name: ");
         String sureName = scannerStr.nextLine();
+        System.out.print("Insert a telephone number: ");
+        String phone = scannerStr.nextLine();
         System.out.print("Insert email address: ");
         String email = scannerStr.nextLine();
-        if(!userService.checkEmail(email)){
+        if (!userService.checkEmail(email)) {
             return;
         }
         System.out.print("Create strong password: ");
@@ -61,56 +69,75 @@ public class Main {
         String month = scannerStr.nextLine();
         System.out.print("Day of birth: ");
         int day = scannerInt.nextInt();
-        System.out.println("1 => "+Gender.MALE.name()+"\n2 => "+Gender.FEMALE.name());
+        System.out.println("1 => " + Gender.MALE.name() + "\n2 => " + Gender.FEMALE.name());
         System.out.println("Choose the gender: ");
         Gender gender = null;
-        if(scannerInt.nextInt()==1){
+        if (scannerInt.nextInt() == 1) {
             gender = Gender.MALE;
-        } else{
+        } else {
             gender = Gender.FEMALE;
         }
-        User user1 = userService.signUp("",sureName,firstName,password,email,month,gender,day,year,"", true);
-        if(user1!=null){
+        User user1 = userService.signUp(usertName, sureName, firstName, password, email, month, gender, day, year, phone, true);
+        if (user1 != null) {
             menu(user1);
-        }else{
+        } else {
             System.out.println("Something went wrong, please try again");
         }
     }
 
-    public static void signIn(){
+    public static void signIn() {
         System.out.print("Insert email address: ");
         String email = scannerStr.nextLine();
-        if(!userService.checkEmail(email)){
+        if (!userService.checkEmail(email)) {
             return;
         }
         System.out.print("Create strong password: ");
         String password = scannerStr.nextLine();
-        User user = userService.signIn(email,password);
-        if(user!=null){
+        User user = userService.signIn(email, password);
+        if (user != null) {
             menu(user);
-        }else{
+        } else {
             System.out.println("Something went wrong, please try again");
         }
 
     }
 
-    public static void menu(User user){
-        while (true){
+    public static void menu(User user) {
+        while (true) {
             System.out.print("1 => \uD83C\uDFE0 Home\n2 => \uD83D\uDC6C Friends\n3 => \uD83D\uDD14 Notifications\n4 => \uD83D\uDCCB Menu\n0 => \uD83D\uDEAA Back\n>>>");
             int var = scannerInt.nextInt();
-            switch (var){
-                case 1 ->{ //home
+            switch (var) {
+                case 1 -> {
+                    while (var != 0) {
+                    System.out.println("1. add Post // 2.show all posts // 0.Exit");
+                    var = scannerInt.nextInt();
+                        switch (var) {
+                            case 1 -> {
+                                System.out.println("Enter post: ");
+                                String s = scannerStr.nextLine();
+                                postService.addPost(user.getId(), s, simpleDateFormat.format(date));
+                            }
+                            case 2 -> {
+                                postService.showAllAvailablePosts();
+                            }
+                            case 0 -> {
+                                return;
+                            }
+                        }
+                    }
                 }
-                case 2 ->{
+                case 2 -> {
                     // friends
                 }
-                case 3 ->{
+                case 3 -> {
                     // noticfications
                 }
-                case 4 ->{
+                case 4 -> {
                     // homeMenu
                 }
-                case 0 ->{return;}
+                case 0 -> {
+                    return;
+                }
                 default -> System.out.println(error);
             }
         }
