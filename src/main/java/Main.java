@@ -1,16 +1,20 @@
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
 import constants.Constants;
 import data.DataBase;
 import lombok.ToString;
 import model.Gender;
 import model.User;
+import org.apache.http.annotation.Contract;
 import serivice.UserService;
-
 import java.io.IOException;
 import java.util.Scanner;
 
 // List<User> users = gson.fromJson(new FileReader("src\\main\\java\\resources\\UsersJson.json"),
 //                new TypeToken<List<User>>(){}.getType());
 @ToString
+@Contract
+
 public class Main extends DataBase implements Constants {
     static User currentUser = null;
     static UserService userService = new UserService();
@@ -23,7 +27,7 @@ public class Main extends DataBase implements Constants {
 
     private static void  mainMenu() throws IOException {
         while (true) {
-            System.out.println(SIGN_UP+"\n"+SIGN_IN+"\n"+EXIT_PROGRAM);
+            System.out.println(SIGN_UP + "\n" + SIGN_IN + "\n" + EXIT_PROGRAM);
             System.out.print("Please enter.. :");
             int var1 = SCANNER_INT.nextInt();
             switch (var1){
@@ -60,33 +64,46 @@ public class Main extends DataBase implements Constants {
         } else {
             gender = Gender.Female;
         }
-        String pass = String.valueOf(userService.emailAuthentication(email));
-        if (pass != null) {
-            System.out.println(" We send password to your email address ");
+            String pass = String.valueOf(userService.emailAuthentication(email));
+            if (pass != null) {
+                System.out.println(" We send password to your email address ");
+            }
+            String pasEmail = null;
+            boolean flag = false;
+            while (flag != true) {
+                System.out.print(" Insert password from your email address : ");
+                pasEmail = SCANNER_STR.nextLine();
+                if (pass.equals(pasEmail) || pass.equals("0")) {
+                    flag = true;
+                } else System.out.println(" Wrong password ");
+            }
+            if (pasEmail.equals(pass)) {
+                User user = new User();
+                user.setFirstName(firstName);
+                user.setSurName(surName);
+                user.setEmail(email);
+                user.setPassword(password);
+                user.setYearOfBirth(year);
+                user.setMonthOfBirth(month);
+                user.setBirthDay(day);
+                user.setGender(gender);
+                currentUser = userService.signUp(user);
+                System.out.println(" Profile created successfully ");
+            } else System.err.println(" Invalid password ");
         }
-        String pasEmail = null;
-        boolean flag = false;
-        while (flag != true) {
-            System.out.print(" Insert password from your email address : ");
-            pasEmail = SCANNER_STR.nextLine();
-            if (pass.equals(pasEmail) || pass.equals("0")){
-                flag = true;
-            } else System.out.println(" Wrong password ");
-        }
-        if (pasEmail.equals(pass)) {
-            User user = new User();
-            user.setFirstName(firstName);
-            user.setSurName(surName);
-            user.setEmail(email);
-            user.setPassword(password);
-            user.setYearOfBirth(year);
-            user.setMonthOfBirth(month);
-            user.setBirthDay(day);
-            user.setGender(gender);
-            currentUser = userService.signUp(user);
-            System.out.println(" Profile created successfully ");
-        }
-        else System.err.println(" Invalid password ");
+    private static int phoneConfirmation(String phonNumber){
+        int phPas =((int)(Math.random() * 999999) + 6);
+            Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+            Message message = Message.creator(
+                            new com.twilio.type.PhoneNumber(phonNumber),
+                            new com.twilio.type.PhoneNumber("+14632383658"),
+                            " Password for facebook : " + phPas)
+                    .create();
+           Message.Status status = message.getStatus();
+           String statusr = status.toString();
+        System.out.println(statusr);
+           //System.out.println(message.getSid());
+        return phPas;
     }
 
     private static void signIn(){
