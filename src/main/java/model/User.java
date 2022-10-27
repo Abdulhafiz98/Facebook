@@ -6,14 +6,13 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString(callSuper = true)
-public class User extends Base {
 
-    private String userName;
-    private String sureName;
+public class User {
+
+    private String userNameOrEmail;
+    private String surName;
     private String firstName;
     private String password;
-    private String email;
     private String dataOfBirth;
     private String gender;
 
