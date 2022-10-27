@@ -1,5 +1,4 @@
 package serivice;
-
 import data.DataBase;
 import model.User;
 

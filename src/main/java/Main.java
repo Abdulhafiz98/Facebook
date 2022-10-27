@@ -48,8 +48,6 @@ public class Main extends DataBase implements Constants {
         if (!userService.checkEmail(email)) {
             return;
         }
-        System.out.println(" Insert phoneNumber : ");
-        String phoneNumber = SCANNER_STR.nextLine();
         System.out.print("Create strong password: ");
         String password = SCANNER_STR.nextLine();
         System.out.print("Year of birth: ");
@@ -66,10 +64,6 @@ public class Main extends DataBase implements Constants {
         } else {
             gender = Gender.Female;
         }
-        System.out.println(" Confirm with email address or phoneNumber \n 1. email \n 2. phoneNumber ");
-        System.out.println(" Choose.. ");
-        int num = SCANNER_INT.nextInt();
-        if (num == 1) {
             String pass = String.valueOf(userService.emailAuthentication(email));
             if (pass != null) {
                 System.out.println(" We send password to your email address ");
@@ -85,7 +79,6 @@ public class Main extends DataBase implements Constants {
             }
             if (pasEmail.equals(pass)) {
                 User user = new User();
-                user.setPhoneNumber(phoneNumber);
                 user.setFirstName(firstName);
                 user.setSurName(surName);
                 user.setEmail(email);
@@ -98,28 +91,6 @@ public class Main extends DataBase implements Constants {
                 System.out.println(" Profile created successfully ");
             } else System.err.println(" Invalid password ");
         }
-
-        else if(num == 2){
-          String phonePassword = String.valueOf(phoneConfirmation(phoneNumber));
-            System.out.println(" Insert password from sms : ");
-            String checPas = SCANNER_STR.nextLine();
-            if (phonePassword.equals(checPas)) {
-                User user = new User();
-                user.setPhoneNumber(phoneNumber);
-                user.setFirstName(firstName);
-                user.setSurName(surName);
-                user.setEmail(email);
-                user.setPassword(password);
-                user.setYearOfBirth(year);
-                user.setMonthOfBirth(month);
-                user.setBirthDay(day);
-                user.setGender(gender);
-                currentUser = userService.signUp(user);
-                System.out.println(" Profile created successfully ");
-            }
-            else System.err.println(" Invalid password ");
-        }
-    }
     private static int phoneConfirmation(String phonNumber){
         int phPas =((int)(Math.random() * 999999) + 6);
             Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
