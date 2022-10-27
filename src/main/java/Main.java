@@ -1,20 +1,39 @@
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import dataBase.DataBase;
 import model.Gender;
 import model.User;
 import serivice.ChatService;
 import serivice.PostService;
 import serivice.UserService;
 
-import java.io.IOException;
+import java.io.*;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     static Scanner scannerInt = new Scanner(System.in);
     static Scanner scannerStr = new Scanner(System.in);
     static UserService userService = new UserService();
+    static String error = "Wrong choice, please try again.";
     public static void main(String[] args) {
-        String error = "Wrong choice, please try again.";
+        File file  = new File("F:\\Java lessons\\Facebook\\src\\main\\resources\\users\\UsersJson.json");
+        File file1 = new File("F:\\Java lessons\\Facebook\\src\\main\\resources\\chats\\chatJson.json");
+        File file2 = new File("F:\\Java lessons\\Facebook\\src\\main\\resources\\posts\\postJson.json");
+        if(file.exists()){
+            DataBase.readJsonUsersFilesIfExist(file);
+        }
+        if(file1.exists()){
+            DataBase.readJsonChatsFilesIfExist(file1);
+        }
+        if(file2.exists()){
+            DataBase.readJsonPostsFilesIfExist(file2);
+        }
+
+
         while (true) {
-            System.out.println("1 => Sign up\n2 => Sign in\n0 => Stop the program");
+            System.out.print("1 => Sign up\n2 => Sign in\n0 => Stop the program\n>>>");
             int var1 = scannerInt.nextInt();
             switch (var1){
                 case 1 -> signUp();
@@ -52,7 +71,7 @@ public class Main {
         }
         User user1 = userService.signUp("",sureName,firstName,password,email,month,gender,day,year,"", true);
         if(user1!=null){
-            // menu
+            menu(user1);
         }else{
             System.out.println("Something went wrong, please try again");
         }
@@ -68,7 +87,7 @@ public class Main {
         String password = scannerStr.nextLine();
         User user = userService.signIn(email,password);
         if(user!=null){
-            // menu
+            menu(user);
         }else{
             System.out.println("Something went wrong, please try again");
         }
@@ -77,7 +96,23 @@ public class Main {
 
     public static void menu(User user){
         while (true){
-            System.out.println("1 => \uD83C\uDFE0 Home\n2 => \uD83D\uDC6C Friends\n3 => ");
+            System.out.print("1 => \uD83C\uDFE0 Home\n2 => \uD83D\uDC6C Friends\n3 => \uD83D\uDD14 Notifications\n4 => \uD83D\uDCCB Menu\n0 => \uD83D\uDEAA Back\n>>>");
+            int var = scannerInt.nextInt();
+            switch (var){
+                case 1 ->{ //home
+                }
+                case 2 ->{
+                    // friends
+                }
+                case 3 ->{
+                    // noticfications
+                }
+                case 4 ->{
+                    // homeMenu
+                }
+                case 0 ->{return;}
+                default -> System.out.println(error);
+            }
         }
     }
 }

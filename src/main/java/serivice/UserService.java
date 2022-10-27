@@ -51,4 +51,13 @@ public class UserService {
         }
         return false;
     }
+
+    public static User getUserById(int userId){
+        for (User user : DataBase.USERS_LIST) {
+            if(user!=null){
+                return user;
+            }
+        }
+        return null;
+    }
 }
