@@ -15,4 +15,8 @@ public class Group extends Base{
     private int adminId;
     List<Integer> users=new ArrayList<>();
     List<String>chats=new ArrayList<>();
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/master

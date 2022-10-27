@@ -1,5 +1,6 @@
 package serivice;
 
+import dataBase.Colors;
 import dataBase.DataBase;
 import model.Chat;
 import model.User;
@@ -14,7 +15,7 @@ public class ChatService {
 
     public void sendMessage(User sender, User receiver, String message){
         Chat chat = new Chat(sender,receiver);
-        chat.getMessageList().add("\u001B[32m"+sender.getFirstName()+"\u001B[0m"+": "+getMessageTime(message));
+        chat.getMessageList().add(Colors.GREEN.getColorCode()+sender.getFirstName()+ Colors.RESET.getColorCode() +": "+getMessageTime(message));
         try {
             DataBase.saveChatToDataBase(chat);
         } catch (IOException e) {
@@ -23,6 +24,6 @@ public class ChatService {
     }
     private String getMessageTime(String message){
         LocalTime localTime = LocalTime.now();
-        return message + ". |\u001B[33m" + localTime.format(DateTimeFormatter.ofPattern("HH:mm"));
+        return message + " \n|"+Colors.YELLOW.getColorCode()+ localTime.format(DateTimeFormatter.ofPattern("HH:mm"));
     }
 }

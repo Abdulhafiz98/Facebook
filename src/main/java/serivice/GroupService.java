@@ -2,8 +2,11 @@ package serivice;
 
 import model.Group;
 import model.User;
+<<<<<<< HEAD
 import serivice.baseService.BaseService;
 
+=======
+>>>>>>> origin/master
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -94,4 +97,8 @@ public class GroupService implements BaseService {
             }
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/master
