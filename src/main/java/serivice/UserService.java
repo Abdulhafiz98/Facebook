@@ -5,10 +5,12 @@ import model.User;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
 
-public class UserService {
+public class UserService extends DataBase {
     public User signUp(User user) {
         DataBase.USERS_LIST.add(user);
         try {
@@ -19,9 +21,9 @@ public class UserService {
         return user;
     }
 
-    public User signIn(String email,String password){
-        for (User user : DataBase.USERS_LIST) {
-            if(user!=null){
+    public User signIn(String email,String password) throws FileNotFoundException {
+        for (User user : getUsersFromDataBase()) {
+            if(user != null){
                 if(user.getEmail().equals(email)&&user.getPassword().equals(password)){
                     return user;
                 }
@@ -101,5 +103,15 @@ public class UserService {
             return password;
         } else
             return null;
+    }
+
+    public User searchUserByName(String name) throws FileNotFoundException {
+        List<User>users = getUsersFromDataBase();
+        for (User user : users) {
+            if (user.getUserName().equals(name)) {
+                return user;
+            }
+        }
+        return null;
     }
 }

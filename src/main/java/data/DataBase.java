@@ -8,20 +8,29 @@ import lombok.ToString;
 import model.Chat;
 import model.Post;
 import model.User;
+import org.jetbrains.annotations.Unmodifiable;
+
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 @ToString
 public abstract class DataBase {
     public static List<User> USERS_LIST = new ArrayList<>();
     public static List<List<Chat>> ALL_CHAT_LIST = new ArrayList<>();
     public static List<Post> ALL_POSTS = new ArrayList<>();
+    @Unmodifiable
     public static List<User> returnUserListFromJson() throws FileNotFoundException {
         File file = new File("src\\main\\java\\resources\\UsersJson.json");
         Reader reader = new FileReader(file);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         return List.of(gson.fromJson(reader, User[].class));
+    }
+
+    public List<User> getUsersFromDataBase() throws FileNotFoundException {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        return gson.fromJson(new FileReader("src\\main\\java\\resources\\UsersJson.json"),
+                new TypeToken<List<User>>(){}.getType());
+
     }
 
     public static void saveUserToDataBase(User user) throws IOException {
