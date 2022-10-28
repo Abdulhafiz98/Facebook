@@ -16,5 +16,5 @@ public class Group extends Base {
     private String name;
     private int adminId;
     List<Integer> users=new ArrayList<>();
-    List<String>chats=new ArrayList<>();
+    List<String>post=new ArrayList<>();
 }

@@ -1,9 +1,10 @@
 package serivice;
 
+import data.DataBase;
 import model.User;
 
 
-public class ContactService {
+public class ContactService extends DataBase {
     public User getContactById(int contactId, User owner) {
         User contact = null;
         try {

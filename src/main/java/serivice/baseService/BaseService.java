@@ -10,6 +10,10 @@ public interface BaseService {
 
     Object getById(int id);
 
+    int getById(Object o);
+
+    boolean deleteById(Object o);
+
     boolean deleteById(int id);
 
 

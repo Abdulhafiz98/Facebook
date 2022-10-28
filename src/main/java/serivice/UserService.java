@@ -40,9 +40,9 @@ public class UserService extends DataBase {
         return true;
     }
 
-    public boolean editPersonalDetails(String userName, String surName, String firstName,  String phoneNumber,String  password) {
-        for (User user : DataBase.USERS_LIST) {
-            if (user != null) {
+    public boolean editPersonalDetails(String oldPas,String userName, String surName, String firstName,  String phoneNumber,String  password) throws FileNotFoundException{
+        for (User user : returnUserListFromJson()) {
+            if (user.getPassword().equals(oldPas)) {
                 System.out.println(user);
                 user.setUserName(userName);
                 user.setSurName(surName);
@@ -58,7 +58,7 @@ public class UserService extends DataBase {
     public  String emailAuthentication(String to){
         String password = String.valueOf((int)(Math.random() * 999999) + 6);
 
-        String from = "abiyerovxojiakbar@gmail.com";
+        String from = "from@example";
         String host = "smtp.gmail.com";
 
         Properties properties = System.getProperties();
@@ -71,8 +71,8 @@ public class UserService extends DataBase {
         Session session = Session.getInstance(properties, new Authenticator() {
 
             protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
-                return new javax.mail.PasswordAuthentication("abiyerovxojiakbar@gmail.com",
-                        "zdksmbdesbhnijpm");
+                return new javax.mail.PasswordAuthentication("from@example.com",
+                        "app_pas");
             }
         });
 
@@ -106,12 +106,17 @@ public class UserService extends DataBase {
     }
 
     public User searchUserByName(String name) throws FileNotFoundException {
-        List<User>users = getUsersFromDataBase();
-        for (User user : users) {
-            if (user.getUserName().equals(name)) {
+
+        for (User user : getUsersFromDataBase()) {
+            if (user.getFirstName().equals(name)) {
                 return user;
             }
         }
         return null;
+    }
+
+    public boolean addFriendToUser(User user, User friend){
+
+        return false;
     }
 }

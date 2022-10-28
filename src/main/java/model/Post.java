@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 public class Post extends Base {
 
     private int userId;

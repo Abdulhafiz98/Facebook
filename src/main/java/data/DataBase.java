@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import lombok.ToString;
 import model.Chat;
+import model.Group;
 import model.Post;
 import model.User;
 import org.jetbrains.annotations.Unmodifiable;
@@ -18,6 +19,47 @@ public abstract class DataBase {
     public static List<User> USERS_LIST = new ArrayList<>();
     public static List<List<Chat>> ALL_CHAT_LIST = new ArrayList<>();
     public static List<Post> ALL_POSTS = new ArrayList<>();
+    public static List<Group> ALL_GROUPS_LIST = new ArrayList<>();
+
+    public static void savePostToDataBase(Post post) throws IOException {
+        File file=new File("src\\main\\java\\resources\\GroupsJson.json");
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        if(file.createNewFile()){
+            String str = "["+gson.toJson(post)+"]";
+            fileWriter(file,str);
+        }else{
+            List<Post> posts = gson.fromJson(new FileReader(file), new TypeToken<List<Post>>(){}.getType());
+            posts.add(post);
+            fileWriter(file, gson.toJson(posts));
+        }
+    }
+
+    public static void readJsonGroupsFilesIfExist(File file){
+        Gson gson = new Gson();
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
+            ALL_GROUPS_LIST = gson.fromJson(bufferedReader,new TypeToken<List<Chat>>(){}.getType());
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+
+    public static void saveGroupToDataBase(Group group) throws IOException {
+        File file = new File("src\\main\\java\\resources\\GroupsJson.json");
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        if(file.createNewFile()){
+            String str ="["+gson.toJson(group)+"]";
+            fileWriter(file,str);
+        }else {
+            List<Group> groups = gson.fromJson(new FileReader(file), new TypeToken<List<Group>>(){}.getType());
+            groups.add(group);
+            fileWriter(file, gson.toJson(groups));
+        }
+    }
     @Unmodifiable
     public static List<User> returnUserListFromJson() throws FileNotFoundException {
         File file = new File("src\\main\\java\\resources\\UsersJson.json");

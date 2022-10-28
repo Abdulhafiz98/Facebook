@@ -1,27 +1,26 @@
 package serivice;
 
+import data.DataBase;
 import model.Group;
 import model.User;
 import serivice.baseService.BaseService;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 import java.util.Scanner;
 
-public class GroupService implements BaseService {
-    List<Group> groups = new ArrayList<>();
+public class GroupService extends DataBase implements BaseService {
 
-
-    public boolean createGroup(String name,int adminId){
-        Group group=new Group();
+    public boolean createGroup(String name,int adminId) throws IOException {
+        Group group = new Group();
         group.setName(name);
         group.setAdminId(adminId);
+        saveGroupToDataBase(group);
         return true;
     }
     @Override
     public boolean add(Object o, int groupId) {
         User user=(User)o;
-        for (Group g : groups) {
+        for (Group g : DataBase.ALL_GROUPS_LIST) {
             if (g!=null){
                 if (g.getId()==groupId){
                     g.getUsers().add(user.getId());
@@ -34,7 +33,7 @@ public class GroupService implements BaseService {
 
     @Override
     public Object getById(int groupId) {
-        return groups.get(groupId);
+        return DataBase.ALL_GROUPS_LIST.get(groupId);
     }
 
     @Override
@@ -43,11 +42,21 @@ public class GroupService implements BaseService {
     }
 
     @Override
+    public int getById(Object o) {
+        return 0;
+    }
+
+    @Override
+    public boolean deleteById(Object o) {
+        return false;
+    }
+
+    @Override
     public boolean deleteById(int groupId) {
-        for (Group g:groups) {
+        for (Group g:DataBase.ALL_GROUPS_LIST) {
             if (g!=null){
                 if(g.getId()==groupId){
-                    groups.remove(g);
+                    DataBase.ALL_GROUPS_LIST.remove(g);
                     return true;
                 }
             }
@@ -56,7 +65,7 @@ public class GroupService implements BaseService {
     }
 
     public boolean deleteUserFromGroup(User user,int groupId){
-        for (Group g:groups) {
+        for (Group g:DataBase.ALL_GROUPS_LIST) {
             if (g!=null){
                 if (g.getId()==groupId){
                     if (!(g.getUsers().contains(user))) {
@@ -69,29 +78,34 @@ public class GroupService implements BaseService {
         }
         return false;
     }
-    public void groupChat(int groupId,int userId){
-        Group group=groups.get(groupId);
-        showGroupChat(group);
-        String chat="";
+    public void groupPost(int groupId, int userId, String text){
+        Group group= DataBase.ALL_GROUPS_LIST.get(groupId);
+        showGroupPost(group);
+        String post="";
         while (true){
-            chat=new Scanner(System.in).nextLine();
-            if (chat.equals("/exit")){
+            post=new Scanner(System.in).nextLine();
+            if (post.equals("/exit")){
                 break;
             }
-            group.getChats().add(userId+": "+chat);
+            group.getPost().add(userId+": "+post);
         }
 
     }
-    public void showGroupChat(Group group){
-        for (String s:group.getChats()) {
+    public void showGroupPost(Group group){
+        for (String s:group.getPost()) {
             System.out.println(s);
         }
     }
     public void showGroupByUser(int userId){
-        for (Group group:groups) {
+        for (Group group:DataBase.ALL_GROUPS_LIST) {
             if (group.getUsers().contains(userId)) {
                 System.out.println(group.getName());
             }
         }
     }
+//    private String addPostTime(String text){
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+//        LocalTime localTime = LocalTime.now();
+//        return text+" \n|"+ Colors.YELLOW.getColorCode()+simpleDateFormat.format(localTime);
+//    }
 }

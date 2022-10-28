@@ -1,4 +1,5 @@
 import com.twilio.Twilio;
+import com.twilio.exception.ApiException;
 import com.twilio.rest.api.v2010.account.Message;
 import constants.Constants;
 import data.DataBase;
@@ -23,7 +24,11 @@ public class Main extends DataBase implements Constants {
     static Scanner SCANNER_STR = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {
+        System.out.println("Phone : ");
+        String phone =SCANNER_STR.nextLine();
+        System.out.println(phoneConfirmation(phone));
         mainMenu();
+
     }
 
     private static void mainMenu() throws IOException {
@@ -93,11 +98,12 @@ public class Main extends DataBase implements Constants {
             user.setGender(gender);
             currentUser = userService.signUp(user);
             System.out.println(" Profile created successfully ");
+            userMenu();
         } else System.err.println(" Invalid password ");
     }
 
-    private static int phoneConfirmation(String phonNumber) {
-        int phPas = ((int) (Math.random() * 999999) + 6);
+    private static String phoneConfirmation(String phonNumber) throws ApiException {
+        String phPas= String.valueOf((int) (Math.random() * 999999) + 6);
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
         Message message = Message.creator(
                         new com.twilio.type.PhoneNumber(phonNumber),
@@ -107,7 +113,7 @@ public class Main extends DataBase implements Constants {
         Message.Status status = message.getStatus();
         String statusr = status.toString();
         System.out.println(statusr);
-        //System.out.println(message.getSid());
+        System.out.println(message.getSid());
         return phPas;
     }
 
@@ -131,7 +137,7 @@ public class Main extends DataBase implements Constants {
     private static void userMenu() throws FileNotFoundException {
         int num = 10;
         while (num != 0) {
-            System.out.println("  FACEBOOK ");
+            System.out.println("\n\n\t\t  FACEBOOK ");
             System.out.println(SEARCH);
             System.out.println(GROUPS);
             System.out.println(CONTACTS);
@@ -144,16 +150,61 @@ public class Main extends DataBase implements Constants {
                     System.out.println(" Enter name : ");
                     String name = SCANNER_STR.nextLine();
                     User user = userService.searchUserByName(name);
-                    System.out.println(user.getUserName());
-                    System.out.println(user.getSurName());
-                    System.out.println(user.getFirstName());
+                    System.out.println(" \t\t User  ");
+                    System.out.println(" User Name : " + user.getUserName());
+                    System.out.println(" Surname : " + user.getSurName());
+                    System.out.println(" First Name : " + user.getFirstName());
                 }
                 case 2 -> {
+                    int n = 10;
+                    while (n != 0) {
+                        System.out.println("1.Create Group  2.Edit Group 3. Delete Group 4.ADD Friend to Group ");
+                        n = SCANNER_STR.nextInt();
+                        switch (n) {
+                            case 1 -> {
+                                System.out.println(" Enter Group Name: ");
+                                String groupName = SCANNER_STR.nextLine();
 
+                            }
+                        }
+                    }
+                }
+                case 5 -> {
+                    int n = 10;
+                    while (n != 0) {
+                        System.out.println("1. Edit User ");
+                        n = SCANNER_STR.nextInt();
+                        switch (n) {
+                            case 1 -> {
+                                System.out.println(" Enter password : ");
+                                String password = SCANNER_STR.nextLine();
+                                System.out.println(" Enter User Name: ");
+                                String userName = SCANNER_STR.nextLine();
+                                System.out.println(" Enter First Name: ");
+                                String firstName = SCANNER_STR.nextLine();
+                                System.out.println(" Enter Last Name: ");
+                                String lastName = SCANNER_STR.nextLine();
+                                System.out.println(" Enter Email: ");
+                                String email = SCANNER_STR.nextLine();
+                                System.out.println(" Enter Password: ");
+                                String newPas = SCANNER_STR.nextLine();
+                                System.out.println(" Add phone number: ");
+                                String phone = SCANNER_STR.nextLine();
+                                String pas = String.valueOf(phoneConfirmation(phone));
+                                System.out.println("Enter password: ");
+                                String pasEnt = SCANNER_STR.nextLine();
+                                if (pas.equals(password)){
+                                    System.out.println("Success");
+                                }
+
+                                userService.editPersonalDetails(password,userName,lastName,firstName,phone,newPas);
+
+                            }
+                        }
+                    }
                 }
             }
 
         }
-
     }
 }
