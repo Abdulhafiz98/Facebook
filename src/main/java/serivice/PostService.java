@@ -3,17 +3,28 @@ package serivice;
 import dataBase.Colors;
 import dataBase.DataBase;
 import model.Post;
+import model.User;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class PostService {
-    public boolean addPost(int userId,String text, String date)  {
+    public boolean addPost(User user, String text)  {
         Post post=new Post();
-        post.setText(text);
-        post.setUserId(userId);
-        post.setDate(date);
+        if (user != null) {
+            post.setText(Colors.GREEN.getColorCode()+user.getFirstName()+Colors.RESET.getColorCode()+"\n"+addPostTime(text));
+            post.setUserId(user.getId());
+            for (User user1 : user.getContactList()) {
+                user1.getNotification().put(user,"New post");
+            }
+        }else{
+            throw new NullPointerException();
+        }
         DataBase.ALL_POSTS_LIST.add(post);
         try {
             DataBase.savePostToDataBase(post);
@@ -35,15 +46,13 @@ public class PostService {
         for(int i=DataBase.ALL_POSTS_LIST.size()-1; i>=0; i--){
             if(DataBase.ALL_POSTS_LIST.get(i)!=null){
                 System.out.println(DataBase.ALL_POSTS_LIST.get(i).getText());
-                System.out.println(DataBase.ALL_POSTS_LIST.get(i).getUserId());
-                System.out.println(DataBase.ALL_POSTS_LIST.get(i).getDate());
             }
         }
     }
 
     private String addPostTime(String text){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
-        LocalTime localTime = LocalTime.now();
-        return text+" \n|"+ Colors.YELLOW.getColorCode()+simpleDateFormat.format(localTime);
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        LocalDateTime localDateTime = LocalDateTime.now();
+        return text+" \n|"+ Colors.YELLOW.getColorCode()+dateTimeFormatter.format(localDateTime)+Colors.RESET.getColorCode()+"";
     }
 }

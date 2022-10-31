@@ -40,16 +40,25 @@ public class UserService {
     public boolean editPersonalDetails(String userName, String sureName, String firstName,  String phoneNumber,String  password) {
         for (User user : DataBase.USERS_LIST) {
             if (user != null) {
-                System.out.println(user);
                 user.setUserName(userName);
                 user.setSureName(sureName);
                 user.setFirstName(firstName);
                 user.setPhoneNumber(phoneNumber);
                 user.setPassword(password);
+                try {
+                    DataBase.saveUserToDataBase(user);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 return true;
             }
         }
         return false;
+    }
+    public void showPersonalInfo(User user){
+        if(user!=null) {
+            System.out.println(user.toString());
+        }
     }
 
     public static User getUserById(int userId){

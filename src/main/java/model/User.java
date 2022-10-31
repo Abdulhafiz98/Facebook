@@ -2,8 +2,7 @@ package model;
 
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @NoArgsConstructor
 @Getter
@@ -11,6 +10,7 @@ import java.util.List;
 @ToString
 public class User extends Base {
     List<User> contactList = new ArrayList<>();
+    HashMap<User,String> notification = new HashMap<>();
     private String userName;
     private String sureName;
     private String firstName;

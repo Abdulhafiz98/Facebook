@@ -24,6 +24,6 @@ public class ChatService {
     }
     private String getMessageTime(String message){
         LocalTime localTime = LocalTime.now();
-        return message + " \n|"+Colors.YELLOW.getColorCode()+ localTime.format(DateTimeFormatter.ofPattern("HH:mm"));
+        return message + " \n|"+Colors.YELLOW.getColorCode()+ localTime.format(DateTimeFormatter.ofPattern("HH:mm"))+Colors.RESET.getColorCode();
     }
 }

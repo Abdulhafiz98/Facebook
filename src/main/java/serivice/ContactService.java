@@ -35,10 +35,10 @@ public class ContactService {
         }
     }
 
-    public void addToContact(User owner, User contactUser) {
+    public void addToContact(User owner, User contactUser,String requestType) {
         if (owner != null) {
             owner.getContactList().add(contactUser);
-            System.out.println(" \t\t *** Add to friend ");
+            contactUser.getNotification().put(owner,requestType);
         }
     }
 }
