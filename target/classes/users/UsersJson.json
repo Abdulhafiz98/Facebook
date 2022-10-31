@@ -1,0 +1,34 @@
+[
+  {
+    "contactList": [],
+    "notification": {},
+    "userName": "",
+    "sureName": "Xalimjonov",
+    "firstName": "Abdulhafiz",
+    "password": "abdulhafiz123",
+    "email": "abdulhafiz@gmail.com",
+    "monthOfBirth": "April",
+    "birthDay": 27,
+    "yearOfBirth": 1998,
+    "phoneNumber": "",
+    "gender": "MALE",
+    "isInActive": true,
+    "id": 1
+  },
+  {
+    "contactList": [],
+    "notification": {},
+    "userName": "",
+    "sureName": "Abyorov",
+    "firstName": "Xojiakbar",
+    "password": "12345",
+    "email": "xojiakbar@gmail.com",
+    "monthOfBirth": "February",
+    "birthDay": 18,
+    "yearOfBirth": 1999,
+    "phoneNumber": "",
+    "gender": "MALE",
+    "isInActive": true,
+    "id": 3
+  }
+]
